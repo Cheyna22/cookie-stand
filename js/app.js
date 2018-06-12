@@ -26,9 +26,9 @@ var pikeStore = {
   },
   avgCustPerHour: function () {
     for(var h = 0; h < hoursOperation.length; h++) {
-      var count = pikeStore.randomCustomer(pikeStore.minCustomers, pikeStore.maxCustomers);
-      console.log(count);
-      this.pikesCustPerHour.push(count);
+      var randomNum = pikeStore.randomCustomer(pikeStore.minCustomers, pikeStore.maxCustomers);
+      console.log(randomNum);
+      this.pikesCustPerHour.push(randomNum);
     }
     console.log(this.pikesCustPerHour);
   }
@@ -40,8 +40,41 @@ pikeStore.avgCustPerHour();
 var seatacAirportStore = {
   maxCustomers: 24,
   minCustomers: 3,
-  avgCookiesPerSale: 1.2,
+  avgCookiesPerCust: 1.2,
+  randomCustomer : function () {
+  // have min max customers
+  // generate random # (MDN!!!)
+  // return Math.random() * (max - min) + min;
+    return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
+  },
+  averagePerHour:  function() {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
+  },
+
+  makeList: function () {
+    var ulEl = document.getElementById('seatacAirportStore');
+    var runningTotal = 0;
+    for(var i = 0; i < hoursOperation.length; i++) {
+      // create list elements
+      var liEl = document.createElement('li');
+
+      // give them content
+      var liRandomNum = this.averagePerHour();
+
+      liEl.textContent = hoursOperation[i] + ': ' + liRandomNum + ' cookies';
+      runningTotal += liRandomNum;
+      // append to the DOM
+      // parentElement.appendChild(childElement);
+      ulEl.appendChild(liEl);
+
+      var totalEl = document.createElement('li');
+      totalEl.textContent = 'Total' + runningTotal;
+      ulEl.appendChild(totalEl);
+    }
+  },
 };
+
+seatacAirportStore.averagePerHour();
 
 // Seattle Center
 var seattleCenterStore = {
@@ -63,3 +96,10 @@ var alkiStore = {
   minCustomers: 2,
   avgCookiesPerSale: 4.6,
 };
+
+
+
+
+// Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
+
+// This is how to define a function that is NOT a method - function randomCustPerHour() {}
