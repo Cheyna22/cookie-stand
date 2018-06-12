@@ -11,37 +11,92 @@
 
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
 
-
-
 // 1st and Pike
 var pikeStore = {
   minCustomers : 23,
   maxCustomers : 65,
   avgCookiesPerSale : 6.3,
   pikesCustPerHour : [],
+
+  // generating random number of customers
   randomCustomer : function (minCustomers, maxCustomers) {
     var custHour = Math.random() * (maxCustomers - minCustomers) + minCustomers;
     custHour = Math.floor(custHour);
     return custHour;
   },
+
+  // generating average customers per hour with rounded #
   avgCustPerHour: function () {
     for(var h = 0; h < hoursOperation.length; h++) {
-      var count = pikeStore.randomCustomer(pikeStore.minCustomers, pikeStore.maxCustomers);
-      console.log(count);
-      this.pikesCustPerHour.push(count);
+      var randomNum = pikeStore.randomCustomer(pikeStore.minCustomers, pikeStore.maxCustomers);
+      this.pikesCustPerHour.push(randomNum);
     }
-    console.log(this.pikesCustPerHour);
+  },
+
+  // multiply customers per hour by avg cookies per sale.
+  cookiesPerHour: function() {
+    return this.avgCustPerHour * this.avgCookiesPerSale;
+  },
+
+  // making list
+  makeList: function() {
+    // use for loop
+    for(var i = 0; i < hoursOperation; i++)
+    // need to list the average cookies per hour (need to access the array)
+    // create list elements
+    // give them content
+    //append to DOM
+    
   }
 };
 
 pikeStore.avgCustPerHour();
 
+
 // Seatac Airport
 var seatacAirportStore = {
   maxCustomers: 24,
   minCustomers: 3,
-  avgCookiesPerSale: 1.2,
+  avgCookiesPerCust: 1.2,
+
+  // generates random # of customers
+  randomCustomer : function () {
+  // have min max customers
+  // generate random # (MDN!!!)
+  // return Math.random() * (max - min) + min;
+    return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
+  },
+  // round the avg per hour and multiplys it by coookies per sale/customer
+  averagePerHour :  function() {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
+  },
+
+  makeList: function () {
+    var ulEl = document.getElementById('seatacAirportStore');
+    var runningTotal = 0;
+
+    for(var i = 0; i < hoursOperation.length; i++) {
+      // create list elements
+      var liEl = document.createElement('li');
+
+      // give them content
+      var liRandomNum = this.averagePerHour();
+      liEl.textContent = hoursOperation[i] + ': ' + liRandomNum + ' cookies';
+      runningTotal += liRandomNum;
+
+      // append to the DOM
+      // parentElement.appendChild(childElement);
+      ulEl.appendChild(liEl);
+
+
+    }
+    var totalEl = document.createElement('li');
+    ulEl.appendChild(totalEl);
+    totalEl.textContent = 'Total ' + runningTotal;
+  },
 };
+
+seatacAirportStore.makeList();
 
 // Seattle Center
 var seattleCenterStore = {
@@ -63,3 +118,11 @@ var alkiStore = {
   minCustomers: 2,
   avgCookiesPerSale: 4.6,
 };
+
+
+
+
+// Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
+
+// This is how to define a function that is NOT a method - function randomCustPerHour() {}
+
