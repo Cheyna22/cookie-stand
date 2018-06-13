@@ -10,12 +10,14 @@
 // Display lists on sales.html file
 
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
+
 // empty variable to store locations
 var storeLocations = [];
 
 // access table in DOM
 var storeTable = document.getElementById('storeSales');
 
+// constructor function
 function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
   this.storeName = storeName;
   this.minCustomers = minCustomers;
@@ -23,9 +25,8 @@ function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
   this.avgCookiesPerSale = avgCookiesPerSale;
   storeLocations.push(this);
 }
-
+// creating table
 Stores.prototype.renderRow = function() {
-
   // create TR
   var trElement = document.createElement('tr');
   // create TD
@@ -35,23 +36,29 @@ Stores.prototype.renderRow = function() {
   // append TD to TR
   trElement.appendChild(tdElement);
 
-  // give TD content
+  tdElement = document.createElement('td');
   tdElement = this.minCustomers;
-  // append TD to TR
   trElement.appendChild(tdElement);
 
-  // give TD content
+  tdElement = document.createElement('td');
   tdElement = this.maxCustomers;
-  // append TD to TR
   trElement.appendChild(tdElement);
 
-  // give TD content
+  tdElement = document.createElement('td');
   tdElement = this.avgCookiesPerSale;
-  // append TD to TR
   trElement.appendChild(tdElement);
 
   storeTable.appendChild(trElement);
 };
+
+// creating instances of 
+var pike = new Stores('Pike Store', 23, 65, 6.3);
+pike.renderRow();
+
+
+
+
+
 
 
 // 1st and Pike
@@ -213,7 +220,7 @@ var capitolHillStore = {
     }
 
     var totalCookiesEl = document.createElement('li');
-    totalCookiesEl.textContent = 'Total: '+ alkiTotal;
+    totalCookiesEl.textContent = 'Total: '+ capitolHillTotal;
     capitolHillUlEl.appendChild(totalCookiesEl);
   },
 };
