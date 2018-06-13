@@ -70,6 +70,8 @@ var seatacAirportStore = {
     return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
   },
 
+
+
   makeList : function () {
     var ulEl = document.getElementById('seatacAirportStore');
     var runningTotal = 0;
@@ -81,7 +83,6 @@ var seatacAirportStore = {
 
       // give them content
       var liRandomNum = this.averagePerHour();
-
       liEl.textContent = hoursOperation[i] + ': ' + liRandomNum + ' cookies';
       console.log(liEl);
       runningTotal += liRandomNum;
@@ -103,14 +104,16 @@ var seattleCenterStore = {
   avgCookiesPerSale: 3.7,
 
   // generates random # of customers
-  randomCustomer: function () {
+  randomCustomer: function() {
     return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
   },
 
   // round the avg per hour and multiply it by cookies
-  averagePerHour: function () {
-    return Math.round(this.randomCusotmer() * this.avgCookiesPerSale);
+  averagePerHour: function() {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
   },
+
+
 
   makeList: function () {
     var seattleUlEl = document.getElementById('seattleCenterStore');
@@ -132,25 +135,42 @@ var seattleCenterStore = {
   },
 };
 
-// Call the functions
-pikeStore.makeList();
-seatacAirportStore.makeList();
-seattleCenterStore.makeList();
-
-
-
-
-
-
-
-
-
-
 // Capitol Hill
 var capitolHillStore = {
   maxCustomers: 38,
   minCustomers: 20,
   avgCookiesPerSale: 2.3,
+
+  // generate random # of customer with function and return it rounded
+  randomCustomer: function() {
+    return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
+  },
+  // round random customer and multiply by average cookies per customer/sale
+  averagePerHour: function() {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
+  },
+
+  // make list for HTML
+  makeList: function() {
+    var capitolHillUlEl = document.getElementById('alkiStore');
+    var capitolHillTotal = 0;
+
+    // use for loop
+    for(var i = 0; i < hoursOperation.length; i++) {
+    // create list elements
+      var capitolHillLiEl = document.createElement('li');
+      // give it content
+      var capitolHillCookies = this.averagePerHour();
+      capitolHillLiEl.textContent = hoursOperation[i] + ': ' + capitolHillCookies + ' cookies';
+      capitolHillTotal += capitolHillCookies; 
+      // append to the DOM -> parentElement.appendChild(childElement);
+      capitolHillUlEl.appendChild(capitolHillLiEl);
+    }
+
+    var totalCookiesEl = document.createElement('li');
+    totalCookiesEl.textContent = 'Total: '+ alkiTotal;
+    capitolHillUlEl.appendChild(totalCookiesEl);
+  },
 };
 
 // Alki Store
@@ -158,10 +178,45 @@ var alkiStore = {
   maxCustomers: 16,
   minCustomers: 2,
   avgCookiesPerSale: 4.6,
+
+  // generate random # of customer with function and return it rounded
+  randomCustomer: function() {
+    return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
+  },
+  // round random customer and multiply by average cookies per customer/sale
+  averagePerHour: function() {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
+  },
+
+  // make list for HTML
+  makeList: function() {
+    var alkiUlEl = document.getElementById('capitolHillStore');
+    var alkiTotal = 0;
+
+    // use for loop
+    for(var i = 0; i < hoursOperation.length; i++) {
+    // create list elements
+      var alkiLiEl = document.createElement('li');
+      // give it content
+      var alkiCookies = this.averagePerHour();
+      alkiLiEl.textContent = hoursOperation[i] + ': ' + alkiCookies + ' cookies';
+      alkiTotal += alkiCookies; 
+      // append to the DOM -> parentElement.appendChild(childElement);
+      alkiUlEl.appendChild(alkiLiEl);
+    }
+
+    var totalCookiesEl = document.createElement('li');
+    alkiUlEl.appendChild(totalCookiesEl);
+    totalCookiesEl.textContent = 'Total: '+ alkiTotal;
+  },
 };
 
-
-
+// Call the functions
+pikeStore.makeList();
+seatacAirportStore.makeList();
+seattleCenterStore.makeList();
+alkiStore.makeList();
+capitolHillStore.makeList();
 
 // Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
 
