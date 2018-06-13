@@ -16,48 +16,47 @@ var pikeStore = {
   minCustomers : 23,
   maxCustomers : 65,
   avgCookiesPerSale : 6.3,
-  pikesCustPerHour : [],
 
   // generating random number of customers
-  randomCustomer : function (minCustomers, maxCustomers) {
-    var custHour = Math.random() * (maxCustomers - minCustomers) + minCustomers;
-    custHour = Math.floor(custHour);
-    return custHour;
+  randomCustomer : function () {
+    return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
   },
 
-  // generating average customers per hour with rounded #
-  avgCustPerHour: function () {
-    for(var h = 0; h < hoursOperation.length; h++) {
-      var randomNum = pikeStore.randomCustomer(pikeStore.minCustomers, pikeStore.maxCustomers);
-      this.pikesCustPerHour.push(randomNum);
-    }
-  },
+  // generating average customers per hour with rounded # and multiplying it by cookies
+  avgPerHour: function () {
+    return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
 
-  // multiply customers per hour by avg cookies per sale.
-  cookiesPerHour: function() {
-    return this.avgCustPerHour * this.avgCookiesPerSale;
   },
 
   // making list
   makeList: function() {
+    var pikeStoreEl = document.getElementById('pikeStore');
+    var allStoreTotal = 0;
+
     // use for loop
-    for(var i = 0; i < hoursOperation; i++)
-    // need to list the average cookies per hour (need to access the array)
+    for(var i = 0; i < hoursOperation.length; i++) {
     // create list elements
-    // give them content
-    //append to DOM
-    
-  }
+      var pikeHourEl = document.createElement('li');
+      // give them content
+      var pikesCookies = this.avgPerHour();
+      pikeHourEl.textContent = hoursOperation[i] + ': ' + pikesCookies + ' cookies';
+      allStoreTotal += pikesCookies;
+
+      //append to DOM (parentElement.appendChild(childElement);)
+      pikeStoreEl.appendChild(pikeHourEl);
+    }
+    // create element for all store total
+    var totalCookiesEl = document.createElement('li');
+    pikeStoreEl.appendChild(totalCookiesEl),
+    totalCookiesEl.textContent = 'Total: ' + allStoreTotal;
+  },
 };
-
-pikeStore.avgCustPerHour();
-
 
 // Seatac Airport
 var seatacAirportStore = {
-  maxCustomers: 24,
-  minCustomers: 3,
-  avgCookiesPerCust: 1.2,
+  maxCustomers : 24,
+  minCustomers : 3,
+  avgCookiesPerCust : 1.2,
 
   // generates random # of customers
   randomCustomer : function () {
@@ -71,24 +70,25 @@ var seatacAirportStore = {
     return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
   },
 
-  makeList: function () {
+  makeList : function () {
     var ulEl = document.getElementById('seatacAirportStore');
     var runningTotal = 0;
 
+    // use for loop
     for(var i = 0; i < hoursOperation.length; i++) {
       // create list elements
       var liEl = document.createElement('li');
 
       // give them content
       var liRandomNum = this.averagePerHour();
+
       liEl.textContent = hoursOperation[i] + ': ' + liRandomNum + ' cookies';
+      console.log(liEl);
       runningTotal += liRandomNum;
 
       // append to the DOM
       // parentElement.appendChild(childElement);
       ulEl.appendChild(liEl);
-
-
     }
     var totalEl = document.createElement('li');
     ulEl.appendChild(totalEl);
@@ -96,14 +96,55 @@ var seatacAirportStore = {
   },
 };
 
-seatacAirportStore.makeList();
-
 // Seattle Center
 var seattleCenterStore = {
   maxCustomers: 38,
   minCustomers: 11,
   avgCookiesPerSale: 3.7,
+
+  // generates random # of customers
+  randomCustomer: function () {
+    return Math.round(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
+  },
+
+  // round the avg per hour and multiply it by cookies
+  averagePerHour: function () {
+    return Math.round(this.randomCusotmer() * this.avgCookiesPerSale);
+  },
+
+  makeList: function () {
+    var seattleUlEl = document.getElementById('seattleCenterStore');
+    var storeTotal = 0;
+
+    // for every hour display # cookies sold (For Loop)
+    for(var i = 0; i < hoursOperation.length; i++) {
+      // create list elements
+      var seattleHourEl = document.createElement('li');
+      // give them content
+      var seattleCookies = this.averagePerHour();
+      seattleHourEl.textContent = hoursOperation[i] + ': ' + seattleCookies + ' cookies.';
+      storeTotal += seattleCookies;
+      seattleUlEl.appendChild(seattleHourEl);
+    }
+    var totalCookiesUlEl = document.createElement('li');
+    seattleUlEl.appendChild(totalCookiesUlEl),
+    totalCookiesUlEl.textContent ='Total: ' + storeTotal;
+  },
 };
+
+// Call the functions
+pikeStore.makeList();
+seatacAirportStore.makeList();
+seattleCenterStore.makeList();
+
+
+
+
+
+
+
+
+
 
 // Capitol Hill
 var capitolHillStore = {
