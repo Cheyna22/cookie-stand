@@ -10,6 +10,49 @@
 // Display lists on sales.html file
 
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
+// empty variable to store locations
+var storeLocations = [];
+
+// access table in DOM
+var storeTable = document.getElementById('storeSales');
+
+function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
+  this.storeName = storeName;
+  this.minCustomers = minCustomers;
+  this.maxCustomers = maxCustomers;
+  this.avgCookiesPerSale = avgCookiesPerSale;
+  storeLocations.push(this);
+}
+
+Stores.prototype.renderRow = function() {
+
+  // create TR
+  var trElement = document.createElement('tr');
+  // create TD
+  var tdElement = document.createElement('td');
+  // give TD content
+  tdElement = this.storeName;
+  // append TD to TR
+  trElement.appendChild(tdElement);
+
+  // give TD content
+  tdElement = this.minCustomers;
+  // append TD to TR
+  trElement.appendChild(tdElement);
+
+  // give TD content
+  tdElement = this.maxCustomers;
+  // append TD to TR
+  trElement.appendChild(tdElement);
+
+  // give TD content
+  tdElement = this.avgCookiesPerSale;
+  // append TD to TR
+  trElement.appendChild(tdElement);
+
+  storeTable.appendChild(trElement);
+};
+
 
 // 1st and Pike
 var pikeStore = {
