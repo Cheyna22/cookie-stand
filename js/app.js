@@ -11,7 +11,7 @@
 
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
 
-// empty variable to store locations
+// create empty variable to store locations
 var storeLocations = [];
 
 // access table in DOM
@@ -25,6 +25,8 @@ function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
   this.avgCookiesPerSale = avgCookiesPerSale;
   storeLocations.push(this);
 }
+
+
 // creating table
 Stores.prototype.renderRow = function() {
   // create TR
@@ -53,13 +55,10 @@ Stores.prototype.renderRow = function() {
 
 // creating instances of 
 var pike = new Stores('Pike Store', 23, 65, 6.3);
-pike.renderRow();
 
 
 
-
-
-
+//=======================================================================================
 
 // 1st and Pike
 var pikeStore = {
@@ -120,8 +119,6 @@ var seatacAirportStore = {
     return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
   },
 
-
-
   makeList : function () {
     var ulEl = document.getElementById('seatacAirportStore');
     var runningTotal = 0;
@@ -147,7 +144,6 @@ var seatacAirportStore = {
   },
 };
 
-seatacAirportStore.averagePerHour();
 
 // Seattle Center
 var seattleCenterStore = {
@@ -164,8 +160,6 @@ var seattleCenterStore = {
   averagePerHour: function() {
     return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
   },
-
-
 
   makeList: function () {
     var seattleUlEl = document.getElementById('seattleCenterStore');
@@ -267,8 +261,9 @@ var alkiStore = {
 pikeStore.makeList();
 seatacAirportStore.makeList();
 seattleCenterStore.makeList();
-alkiStore.makeList();
 capitolHillStore.makeList();
+alkiStore.makeList();
+
 
 // Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
 
