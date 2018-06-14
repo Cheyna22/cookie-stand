@@ -23,14 +23,9 @@ function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
   this.minCustomers = minCustomers;
   this.maxCustomers = maxCustomers;
   this.avgCookiesPerSale = avgCookiesPerSale;
-  this.dailyTotal = dailyTotal;
   storeLocations.push(this);
 }
 
-// creating header
-Stores.makeHeader = function() {
-  var headerEl = document.createElement('hr')
-}
 
 // creating table
 Stores.prototype.renderRow = function() {
@@ -58,7 +53,7 @@ Stores.prototype.renderRow = function() {
   storeTable.appendChild(trElement);
 };
 
-// creating instances of
+// creating instances of 
 var pike = new Stores('Pike Store', 23, 65, 6.3);
 
 
@@ -213,7 +208,7 @@ var capitolHillStore = {
       // give it content
       var capitolHillCookies = this.averagePerHour();
       capitolHillLiEl.textContent = hoursOperation[i] + ': ' + capitolHillCookies + ' cookies';
-      capitolHillTotal += capitolHillCookies;
+      capitolHillTotal += capitolHillCookies; 
       // append to the DOM -> parentElement.appendChild(childElement);
       capitolHillUlEl.appendChild(capitolHillLiEl);
     }
@@ -251,7 +246,7 @@ var alkiStore = {
       // give it content
       var alkiCookies = this.averagePerHour();
       alkiLiEl.textContent = hoursOperation[i] + ': ' + alkiCookies + ' cookies';
-      alkiTotal += alkiCookies;
+      alkiTotal += alkiCookies; 
       // append to the DOM -> parentElement.appendChild(childElement);
       alkiUlEl.appendChild(alkiLiEl);
     }
@@ -269,7 +264,7 @@ seattleCenterStore.makeList();
 capitolHillStore.makeList();
 alkiStore.makeList();
 
-Stores.renderRow();
+
 // Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
 
 // This is how to define a function that is NOT a method - function randomCustPerHour() {}
