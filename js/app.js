@@ -11,6 +11,55 @@
 
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
 
+// create empty variable to store locations
+var storeLocations = [];
+
+// access table in DOM
+var storeTable = document.getElementById('storeSales');
+
+// constructor function
+function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
+  this.storeName = storeName;
+  this.minCustomers = minCustomers;
+  this.maxCustomers = maxCustomers;
+  this.avgCookiesPerSale = avgCookiesPerSale;
+  storeLocations.push(this);
+}
+
+
+// creating table
+Stores.prototype.renderRow = function() {
+  // create TR
+  var trElement = document.createElement('tr');
+  // create TD
+  var tdElement = document.createElement('td');
+  // give TD content
+  tdElement = this.storeName;
+  // append TD to TR
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement = this.minCustomers;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement = this.maxCustomers;
+  trElement.appendChild(tdElement);
+
+  tdElement = document.createElement('td');
+  tdElement = this.avgCookiesPerSale;
+  trElement.appendChild(tdElement);
+
+  storeTable.appendChild(trElement);
+};
+
+// creating instances of 
+var pike = new Stores('Pike Store', 23, 65, 6.3);
+
+
+
+//=======================================================================================
+
 // 1st and Pike
 var pikeStore = {
   minCustomers : 23,
@@ -70,8 +119,6 @@ var seatacAirportStore = {
     return Math.round(this.randomCustomer() * this.avgCookiesPerCust);
   },
 
-
-
   makeList : function () {
     var ulEl = document.getElementById('seatacAirportStore');
     var runningTotal = 0;
@@ -97,6 +144,7 @@ var seatacAirportStore = {
   },
 };
 
+
 // Seattle Center
 var seattleCenterStore = {
   maxCustomers: 38,
@@ -112,8 +160,6 @@ var seattleCenterStore = {
   averagePerHour: function() {
     return Math.round(this.randomCustomer() * this.avgCookiesPerSale);
   },
-
-
 
   makeList: function () {
     var seattleUlEl = document.getElementById('seattleCenterStore');
@@ -168,7 +214,7 @@ var capitolHillStore = {
     }
 
     var totalCookiesEl = document.createElement('li');
-    totalCookiesEl.textContent = 'Total: '+ alkiTotal;
+    totalCookiesEl.textContent = 'Total: '+ capitolHillTotal;
     capitolHillUlEl.appendChild(totalCookiesEl);
   },
 };
@@ -215,8 +261,9 @@ var alkiStore = {
 pikeStore.makeList();
 seatacAirportStore.makeList();
 seattleCenterStore.makeList();
-alkiStore.makeList();
 capitolHillStore.makeList();
+alkiStore.makeList();
+
 
 // Method: a function is a property of an object and must be invoked using do notation, such as firstAndPike.randomCustPerHour()
 
