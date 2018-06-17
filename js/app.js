@@ -13,7 +13,7 @@ function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
   this.minCustomers = minCustomers;
   this.maxCustomers = maxCustomers;
   this.avgCookiesPerSale = avgCookiesPerSale;
-  this.hourlyCookies = [];
+  this.cookiesPerHour = [];
   this.totalCookies();
   storeLocations.push(this);
 }
@@ -21,8 +21,10 @@ function Stores(storeName, minCustomers, maxCustomers, avgCookiesPerSale) {
 //total cookies for each hour
 Stores.prototype.totalCookies = function() {
   for(var i = 0; i < hoursOperation.length; i++) {
+    //gives random number of customers
     var randomCustomer = Math.floor(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
-    this.hourlyCookies = (Math.round(randomCustomer * this.avgCookiesPerSale));
+    // this.cookiesPerHour = Math.round(randomCustomer * this.avgCookiesPerSale);
+    this.cookiesPerHour.push(Math.round(randomCustomer * this.avgCookiesPerSale));
   }
 };
 
@@ -30,7 +32,7 @@ Stores.prototype.totalCookies = function() {
 Stores.makeHeader = function() {
   var tHeaderEl = document.createElement('th');
   var tRowEl = document.createElement('tr');
-
+  
   tHeaderEl.textContent = 'Location';
   tRowEl.appendChild(tHeaderEl);
 
@@ -48,16 +50,16 @@ Stores.makeHeader = function() {
 
 // creating table // one function that renders a row for stores data for loop for middle and singles for total plus location.
 Stores.prototype.renderRow = function() {
-
   var trElement = document.createElement('tr'); // create 2nd row
   var tdElement = document.createElement('td'); // create data cell
 
-  tdElement.textContent= this.storeName; // store name goes in the first cell
-  tdElement.appendChild(trElement); // append to parent
+  trElement.textContent = this.storeLocations; // store name goes in the first cell
+  trElement.appendChild(tdElement); // append to parent
 
-  for(var i = 0; i < storeLocations; i++) {
+
+  for(var i = 0; i < hoursOperation.length; i++) {
     tdElement = document.createElement('td');
-    tdElement.textContent = this.hourlyCookies;
+    tdElement.textContent = this.cookiesPerHour;
     trElement.appendChild(tdElement);
   }
 
@@ -66,7 +68,6 @@ Stores.prototype.renderRow = function() {
   trElement.appendChild(tdElement);
 
   storeTable.appendChild(trElement);
-  console.log('this is the table row element', trElement);
 };
 
 //========================================================================================================================
@@ -77,6 +78,7 @@ new Stores('SeaTac Airport', 24, 3, 1.2);
 new Stores('Seattle Center', 38, 11, 3.7);
 new Stores('Capitol Hill', 38, 20, 2.3);
 new Stores('Alki', 16, 2, 4.6);
+
 Stores.makeHeader();
 Stores.prototype.renderRow();
 
