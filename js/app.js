@@ -80,5 +80,5 @@ new Stores('Capitol Hill', 38, 20, 2.3);
 new Stores('Alki', 16, 2, 4.6);
 
 Stores.makeHeader();
-// Stores.prototype.renderRow();
+Stores.prototype.renderRow();
 
