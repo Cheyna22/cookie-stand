@@ -4,6 +4,7 @@
 var hoursOperation = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM'];
 var storeLocations = []; // create empty variable to store locations
 var storeTable = document.getElementById('storeTable'); // access table in DOM
+var addNewStore = document.getElementById('addNewStore'); // acces add new store form in DOM
 
 //========================================================================================================================
 //========================================================================================================================
@@ -48,7 +49,6 @@ Stores.makeHeader = function() {
 
 // creating table // one function that renders a row for stores data for loop for middle and singles for total plus location.
 Stores.prototype.renderRow = function() {
-
   var trElement = document.createElement('tr'); // create 2nd row
   var tdElement = document.createElement('td'); // create data cell
 
@@ -69,6 +69,27 @@ Stores.prototype.renderRow = function() {
   console.log('this is the table row element', trElement);
 };
 
+Stores.renderAllStores = function() {
+  for(var i in storeLocations) {
+    storeLocations[i].renderRow();
+  }
+};
+
+// FORM FOR ADDING NEW STORE =============================================================================================
+Stores.addNewStore = function(event) {
+  event.preventDefault();
+  var newStoreName = event.target.storeName.value;
+  var newMinCustomer = event.target.minCust.value;
+  var newMaxCustomer = event.target.maxCust.value;
+  var newAvgCookiePerCustomer = event.target.avgCookiePerCust.value;
+
+  new Stores(newStoreName, newMinCustomer, newMaxCustomer, newAvgCookiePerCustomer);
+
+  storeTable.textContent = '';
+};
+
+// Add event listener
+addNewStore.addEventListener('submit', Stores.addNewStore);
 //========================================================================================================================
 //========================================================================================================================
 // CALLING FUNCTIONS/METHODS==============================================================================================
@@ -79,4 +100,5 @@ new Stores('Capitol Hill', 38, 20, 2.3);
 new Stores('Alki', 16, 2, 4.6);
 Stores.makeHeader();
 Stores.prototype.renderRow();
+Stores.renderAllStores();
 
