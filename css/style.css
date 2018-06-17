@@ -1,7 +1,42 @@
+
 body {
-  background-color: burlywood;
+  background-color: rgb(202, 147, 71);
+  width: 100%
 }
 
-p {
-  color: red;
+/* HEADER SECTION!!!---------------------------------------------------------- */
+.header {
+  height: 130px;
+  background-color: rgb(36, 134, 49);
+}
+
+.header-left {
+  float: left;
+  margin-top: 30px;
+}
+
+.header-center li {
+  float: right;
+  padding: 5px;
+  margin-top: 75px;
+}
+
+.header-left p {
+  font-size: 30px;
+}
+
+.header-left img {
+}
+
+/* MAIN SECTION!!!------------------------------------------------------------ */
+h2#main-title {
+  font-size: 60px;
+  text-align: center;
+  font-family: 'Shrikhand', cursive;
+  color: rgb(207, 56, 10);
+}
+
+h2.titles {
+  font-size: 50px;
+  color: rgb(24, 90, 8);
 }
